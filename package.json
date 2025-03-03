@@ -1,7 +1,7 @@
 {
   "name": "bee-nest",
   "version": "0.0.1",
-  "description": "bee-nest is a NestJS API made to orchestrate EthSwarm nodes.",
+  "description": "bee-nest is a NestJS API for managing dockerized EthSwarm nodes.",
   "author": "Xavier Saliniere",
   "private": true,
   "license": "GPL-3.0-or-later",
