@@ -5,6 +5,10 @@
   "author": "Xavier Saliniere",
   "private": true,
   "license": "GPL-3.0-or-later",
+  "engines": {
+    "npm": ">=10.5.1",
+    "node": ">=22.0.0"
+  },
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
