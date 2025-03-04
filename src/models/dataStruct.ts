@@ -1,4 +1,4 @@
-export interface DatabaseModel {
+export interface DataStruct {
   bees: Bee[];
 }
 
@@ -9,4 +9,4 @@ export interface Bee {
   reserveDoubling: boolean;
 }
 
-export const DefaultDatabaseModel: DatabaseModel = { bees: [] };
+export const DefaultDatabaseModel: DataStruct = { bees: [] };

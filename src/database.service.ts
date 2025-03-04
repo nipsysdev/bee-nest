@@ -1,5 +1,5 @@
 import { Injectable, Logger, OnModuleDestroy } from '@nestjs/common';
-import { DatabaseModel } from './models/DatabaseModel';
+import { DataStruct } from './models/dataStruct';
 import { Low } from 'lowdb';
 
 @Injectable()
@@ -7,7 +7,7 @@ export class DatabaseService implements OnModuleDestroy {
   public static readonly dbFile = './db.json';
   private logger = new Logger(DatabaseService.name);
 
-  constructor(private readonly db: Low<DatabaseModel>) {}
+  constructor(private readonly db: Low<DataStruct>) {}
 
   get bees() {
     return this.db.data.bees;
