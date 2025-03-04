@@ -1,8 +1,8 @@
 export interface DataStruct {
-  bees: Bee[];
+  bees: BeeData[];
 }
 
-export interface Bee {
+export interface BeeData {
   id: number;
   name: string;
   neighborhood: string;
