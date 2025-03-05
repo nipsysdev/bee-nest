@@ -1,7 +1,7 @@
 import { Injectable, OnModuleDestroy } from '@nestjs/common';
-import { DatabaseService } from './database.service';
+import { DatabaseService } from './core/database.service';
 import { BeeCreationPayload } from './models/payloads';
-import { ConfigService } from './config.service';
+import { ConfigService } from './core/config.service';
 
 @Injectable()
 export class BeeService implements OnModuleDestroy {

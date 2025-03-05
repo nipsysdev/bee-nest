@@ -1,5 +1,5 @@
 import { Injectable, Logger, OnModuleDestroy } from '@nestjs/common';
-import { BeeData, DataStruct } from './models/dataStruct';
+import { BeeData, DataStruct } from '../models/dataStruct';
 import { Low } from 'lowdb';
 
 @Injectable()
