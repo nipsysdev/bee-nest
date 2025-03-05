@@ -1,11 +1,11 @@
 import { Injectable, Logger, OnModuleDestroy } from '@nestjs/common';
-import { DataStruct } from './models/dataStruct';
+import { BeeData, DataStruct } from './models/dataStruct';
 import { Low } from 'lowdb';
 
 @Injectable()
 export class DatabaseService implements OnModuleDestroy {
   public static readonly dbFile = './db.json';
-  private logger = new Logger(DatabaseService.name);
+  readonly #logger = new Logger(DatabaseService.name);
 
   constructor(private readonly db: Low<DataStruct>) {}
 
@@ -13,13 +13,17 @@ export class DatabaseService implements OnModuleDestroy {
     return this.db.data.bees;
   }
 
-  getBee(beeName: string) {
-    return this.db.data.bees.find((bee) => bee.name === beeName);
+  addBee(data: BeeData) {
+    this.db.data.bees.push(data);
+  }
+
+  removeBee(data: BeeData) {
+    this.db.data.bees = this.db.data.bees.filter((bee) => bee.id !== data.id);
   }
 
   async onModuleDestroy() {
-    this.logger.log(`Saving database..`);
+    this.#logger.log(`Saving database..`);
     await this.db.write();
-    this.logger.log(`Database persisted to ${DatabaseService.dbFile}`);
+    this.#logger.log(`Database persisted to ${DatabaseService.dbFile}`);
   }
 }

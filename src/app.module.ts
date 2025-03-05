@@ -1,20 +1,33 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import {
+  ConfigModule,
+  ConfigService as NestConfigService,
+} from '@nestjs/config';
 import { DockerService } from './docker.service';
 import * as Docker from 'dockerode';
 import { DatabaseService } from './database.service';
 import { JSONFilePreset } from 'lowdb/node';
 import { DataStruct, DefaultDatabaseModel } from './models/dataStruct';
+import { BeeService } from './bee.service';
+import { BeeController } from './bee.controller';
+import { ConfigService } from './config.service';
 
 @Module({
   imports: [ConfigModule.forRoot()],
-  controllers: [AppController],
+  controllers: [BeeController],
   providers: [
-    AppService,
     {
-      provide: DatabaseService.name,
+      provide: BeeService,
+      inject: [ConfigService, DatabaseService],
+      useFactory: (
+        configService: ConfigService,
+        dbService: DatabaseService,
+      ) => {
+        return new BeeService(configService, dbService);
+      },
+    },
+    {
+      provide: DatabaseService,
       useFactory: async () => {
         const db = await JSONFilePreset<DataStruct>(
           DatabaseService.dbFile,
@@ -25,10 +38,16 @@ import { DataStruct, DefaultDatabaseModel } from './models/dataStruct';
       },
     },
     {
-      provide: DockerService.name,
+      provide: DockerService,
       useFactory: () => {
         return new DockerService(new Docker());
       },
+    },
+    {
+      provide: ConfigService,
+      inject: [NestConfigService],
+      useFactory: (envConfig: NestConfigService) =>
+        new ConfigService(envConfig),
     },
   ],
 })

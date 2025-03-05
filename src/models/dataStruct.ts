@@ -4,7 +4,6 @@ export interface DataStruct {
 
 export interface BeeData {
   id: number;
-  name: string;
   neighborhood: string;
   reserveDoubling: boolean;
 }
